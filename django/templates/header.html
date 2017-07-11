@@ -34,6 +34,7 @@
                     <li class><a href={% url 'students:students_list' %}>Students</a></li>
                 {% endif %}
                 <li class><a href={% url 'quadratic:quadratic_eval' %}>Quadratic</a></li>
+                <li class><a href={% url 'feedback' %}>Feedback</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}

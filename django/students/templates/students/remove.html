@@ -1,0 +1,10 @@
+{% extends 'header.html' %}
+{% block content %}
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        <h2>Студент {{ name }} {{ surname }} будет удален</h2>
+        <hr>
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+        <button type="submit" class="save btn btn-default">Удалить</button>
+    </form>
+{% endblock %}

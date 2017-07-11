@@ -28,6 +28,10 @@ ALLOWED_HOSTS = [
     'entick.pythonanywhere.com'
 ]
 
+ADMINS = [('Admin', 'entick11@gmail.com')]
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -42,6 +46,8 @@ INSTALLED_APPS = (
     'courses',
     'students',
     'quadratic',
+    'coaches',
+    'feedbacks',
 )
 
 MIDDLEWARE_CLASSES = (

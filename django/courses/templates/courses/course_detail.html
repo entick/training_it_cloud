@@ -3,7 +3,24 @@
     {% load staticfiles %}
     <link rel="stylesheet" href={% static "css/courses.css" %}>
     <h1 class="company">{{ course.name }}</h1>
-    <text class="description">{{ course.description }}</text>
+    <text class="description">{{ course.description|truncatechars:32 }}</text>
+    <h4>Преподователи</h4>
+    <div class="panel panel-default">
+        <div class="panel-heading">Учитель</div>
+        <div class="panel body">
+            <a href="{% url 'coaches:coach_detail' pk=course.coach.pk %}">{{ course.coach }}</a>
+            <br>
+            {{ course.coach.description }}
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Ассистент</div>
+        <div class="panel body">
+            <a href="{% url 'coaches:coach_detail' pk=course.assistant.pk %}">{{ course.assistant }}</a>
+            <br>
+            {{ course.assistant.description }}
+        </div>
+    </div>
     <h2>Занятия курса:</h2>
     <hr>
     <table width="120%">

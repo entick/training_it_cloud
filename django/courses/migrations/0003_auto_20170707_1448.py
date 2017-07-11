@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='lesson',
             name='order',
-            field=models.PositiveIntegerField(unique=True, default=0),
+            field=models.PositiveIntegerField(unique=False, default=0),
         ),
     ]

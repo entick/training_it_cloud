@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Course, Lesson
 from .forms import CourseForm, LessonForm
@@ -60,6 +61,7 @@ def add_lesson_to_course(request, pk):
             lesson = form.save(commit=False)
             lesson.course = course
             lesson.save()
+            messages.success(request, "Урок " + lesson.subject + " был успешно добавлен")
             return redirect('courses:course_detail', pk=pk)
     else:
         form = LessonForm()

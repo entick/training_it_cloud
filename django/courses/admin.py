@@ -12,6 +12,7 @@ class CourseAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,{'fields':['name']}),
         ('Information',{'fields':['short_description']}),
+        ('Coaches',{'fields':['coach','assistant']})
     ]
     inlines = [LessonInLine]
     list_display = ('name','short_description')

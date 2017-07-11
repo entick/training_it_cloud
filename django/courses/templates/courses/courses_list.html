@@ -13,7 +13,8 @@
         {% for course in courses %}
             <div class="course">
                 <tr>
-                    <td><h5><a href="{% url 'courses:course_detail' pk=course.pk %}"> {{ course.name }}</a></h5></td>
+                    <td><h5><a href="{% url 'courses:course_detail' pk=course.pk %}"> {{ course.name|upper }}</a></h5>
+                    </td>
                     <td><h6>{{ course.short_description }}</h6></td>
                     <td>
                         {% if user.is_superuser %}

@@ -1,0 +1,47 @@
+{% extends 'header.html' %}
+{% block content %}
+    <h3>{{ coach.user.first_name }} {{ coach.user.last_name }}</h3>
+    <table class="table table-hover" width="150%">
+        <tbody>
+        <tr>
+            <td>День рождения</td>
+            <td>{{ coach.date_of_bitrh|date:"d M, Y" }}</td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td>{{ coach.user.email }}</td>
+        </tr>
+        <tr>
+            <td>Телефонный номер</td>
+            <td>{{ coach.phone }}</td>
+        </tr>
+        <tr>
+            <td>Адрес</td>
+            <td>{{ coach.address }}</td>
+        </tr>
+        <tr>
+            <td>skype</td>
+            <td>{{ coach.skype }}</td>
+        </tr>
+        <tr>
+            <td>Тренер</td>
+            <td>
+                {% for course in coursesc %}
+                    <h6><a href={% url 'courses:course_detail' pk=course.pk %}> {{ course.name }}</a></h6><h6><a href="{% url 'students:students_list' %}?course_id={{ course.pk }}"><span
+                            class="glyphicon glyphicon-search"></span></a></h6>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td>Ассистент</td>
+            <td>
+                {% for course in coursesa %}
+                    <h6><a href={% url 'courses:course_detail' pk=course.pk %}> {{ course.name }}</a></h6><h6><a href="{% url 'students:students_list' %}?course_id={{ course.pk }}"><span
+                                class="glyphicon glyphicon-search"></span></a></h6>
+                {% endfor %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

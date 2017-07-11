@@ -1,6 +1,17 @@
 {% extends 'header.html' %}
 {% block content %}
     {% load staticfiles %}
+    {% if messages %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <ul class="messages">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
     <table class="table table-hover" width="150%">
         <tr>
             <th>№</th>
@@ -42,13 +53,27 @@
                 </tr>
             </div>
         {% endfor %}
-
     </table>
+    <ul class="pagination">
+        {% if students.has_previous %}
+            <li><a href="{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}&{% else %}?{% endif %}page={{ students.previous_page_number }}">previous</a></li>
+        {% endif %}
+        <li class="active">
+            <a href="">{{ students.number }}</a>
+        </li>
+        {% if students.has_next %}
+            <li><a href="{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}&{% else %}?{% endif %}page={{ students.next_page_number }}">next</a></li>
+        {% endif %}
+    </ul>
     {% if user.is_superuser %}
-        <a href="{% url 'students:student_new' %}?course_id={{ request.GET.course_id }}&next={{ request.path|urlencode }}">
-            <button type="submit">Add
-                student
-            </button>
-        </a>
+        <div>
+            <a href="
+                    {% url 'students:student_new' %}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}&{% else %}?{% endif %}next=
+                    {{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}">
+                <button type="submit">Add
+                    student
+                </button>
+            </a>
+        </div>
     {% endif %}
 {% endblock %}
