@@ -41,35 +41,34 @@
                     <td>
                         {% if user.is_superuser %}
                             <a class="btn btn-default"
-                               href="{% url 'students:student_edit' pk=student.pk %}?next=
-                                       {{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}"><span
-                                    class="glyphicon glyphicon-pencil"></span></a>
-                            <a class="btn btn-default" href="{% url 'students:student_remove' pk=student.pk %}?next=
-                                    {{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}"><span
+                               href="{% url 'students:student_edit' pk=student.pk %}?next={{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}">
+                               <span class="glyphicon glyphicon-pencil"></span></a>
+                            <a class="btn btn-default" href="{% url 'students:student_remove' pk=student.pk %}?next={{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}"><span
                                     class="glyphicon glyphicon-remove"></span></a>
                         {% endif %}
                     </td>
-
                 </tr>
             </div>
         {% endfor %}
     </table>
     <ul class="pagination">
         {% if students.has_previous %}
-            <li><a href="{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}&{% else %}?{% endif %}page={{ students.previous_page_number }}">previous</a></li>
+            <li>
+                <a href="{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}&{% else %}?{% endif %}page={{ students.previous_page_number }}">previous</a>
+            </li>
         {% endif %}
         <li class="active">
             <a href="">{{ students.number }}</a>
         </li>
         {% if students.has_next %}
-            <li><a href="{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}&{% else %}?{% endif %}page={{ students.next_page_number }}">next</a></li>
+            <li>
+                <a href="{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}&{% else %}?{% endif %}page={{ students.next_page_number }}">next</a>
+            </li>
         {% endif %}
     </ul>
     {% if user.is_superuser %}
         <div>
-            <a href="
-                    {% url 'students:student_new' %}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}&{% else %}?{% endif %}next=
-                    {{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}">
+            <a href="{% url 'students:student_new' %}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}&{% else %}?{% endif %}next={{ request.path|urlencode }}{% if request.GET.course_id %}?course_id={{ request.GET.course_id }}{% endif %}">
                 <button type="submit">Add
                     student
                 </button>

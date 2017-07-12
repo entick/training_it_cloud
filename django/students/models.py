@@ -15,3 +15,6 @@ class Student(models.Model):
 
     def fullname(self):
         return self.name + " " + self.surname
+
+    def __str__(self):
+        return self.name + " " + self.surname

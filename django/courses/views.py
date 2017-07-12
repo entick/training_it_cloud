@@ -1,5 +1,8 @@
 from django.contrib import messages
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect, render, get_object_or_404
+from django.views import generic
+
 from .models import Course, Lesson
 from .forms import CourseForm, LessonForm
 
@@ -7,6 +10,31 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+
+class CourseListView(generic.ListView):
+    template_name = 'courses/courses_list.html'
+    context_object_name = 'courses'
+
+    def get_queryset(self):
+        return Course.objects.order_by('name')
+
+
+class CourseDetailView(generic.DeleteView):
+    model = Course
+    template_name = 'courses/course_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CourseDetailView, self).get_context_data(**kwargs)
+        course = get_object_or_404(Course, pk=self.object.pk)
+        context["course"]=course
+        context['lessons']=Lesson.objects.filter(course=course.pk).order_by('order')
+        return context
+
+class CourseCreateView(generic.CreateView):
+    model = Course
+    template_name = 'courses/course_edit.html'
+    form_class = CourseForm
+    success_url = reverse_lazy('courses_list')
 
 
 def courses_list(request):
@@ -79,6 +107,7 @@ def lesson_edit(request, pk):
     else:
         form = LessonForm(instance=lesson)
     return render(request, 'courses/add_lesson_to_course.html', {'form': form})
+
 
 @login_required
 def lesson_remove(request, pk):
