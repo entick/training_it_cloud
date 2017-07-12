@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
@@ -35,6 +34,44 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = '1937f167ce4a58749368ca8e815336@gmail.com'
 EMAIL_HOST_PASSWORD = 'a9d05f29fcc6b5f9805e11dd2587d419'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(funcName)s %(message)s',
+            'datefmt': "%Y-%m-%d %H:%M:%S",
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'loggers': {
+        'courses': {
+            'handlers': ['file_courses'],
+            'level': 'DEBUG',
+        },
+        'students': {
+            'handlers': ['file_students'],
+            'level': 'WARNING',
+        },
+    },
+    'handlers': {
+        'file_courses': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'courses_logger.log'),
+            'formatter': 'simple',
+        },
+        'file_students': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'students_logger.log'),
+            'formatter': 'verbose',
+        },
+    },
+}
 
 # Application definition
 

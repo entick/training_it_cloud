@@ -1,0 +1,9 @@
+{% extends 'header.html' %}
+{% block content %}
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        <h2>Курс {{object}} будет удален</h2>
+        <hr>
+        <button type="submit" class="save btn btn-default">Удалить</button>
+    </form>
+{% endblock %}

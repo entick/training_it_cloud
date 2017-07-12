@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Choise',
+            name='Choice',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('choice_text', models.CharField(max_length=200)),
@@ -27,8 +27,8 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddField(
-            model_name='choise',
+            model_name='choice',
             name='question',
-            field=models.ForeignKey(to='mysite.polls.Question'),
+            field=models.ForeignKey(to='polls.Question'),
         ),
     ]

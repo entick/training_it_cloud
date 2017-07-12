@@ -11,6 +11,9 @@ from .forms import StudentForm
 
 from django.contrib.auth.decorators import login_required
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 
@@ -41,6 +44,10 @@ class StudentDetailView(generic.DetailView):
     template_name = 'students/student_detail.html'
 
     def get_queryset(self):
+        logger.debug('Students detail view has been debugged!')
+        logger.info('Logger of students detail view informs you!')
+        logger.warning('Logger of students detail view warns you!')
+        logger.error('Students detail view went wrong!')
         return Student.objects.filter()
 
 
@@ -48,7 +55,7 @@ class StudentCreateView(generic.CreateView):
     model = Student
     form_class = StudentForm
     template_name = 'students/student_edit.html'
-    success_url = reverse_lazy('students_list')
+    success_url = reverse_lazy('students:students_list')
 
     def get_initial(self):
         course_id = self.request.GET.get('course_id', '-1')
@@ -73,7 +80,7 @@ class StudentUpdateView(generic.UpdateView):
     model = Student
     form_class = StudentForm
     template_name = 'students/student_edit.html'
-    success_url = reverse_lazy('students_list')
+    success_url = reverse_lazy('students:students_list')
 
     def get_initial(self):
         course_id = self.request.GET.get('course_id', '-1')
@@ -96,7 +103,7 @@ class StudentUpdateView(generic.UpdateView):
 
 class StudentDeleteView(generic.DeleteView):
     model = Student
-    success_url = reverse_lazy('students_list')
+    success_url = reverse_lazy('students:students_list')
 
     def get_success_url(self):
         return self.request.GET.get('next', self.success_url)

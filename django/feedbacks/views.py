@@ -8,7 +8,9 @@ from .models import Feedback
 from .forms import FeedbackForm
 from mysite import settings
 
-import datetime
+import sendgrid
+import os
+from sendgrid.helpers.mail import *
 
 
 class FeedbackView(generic.CreateView):
@@ -20,11 +22,12 @@ class FeedbackView(generic.CreateView):
     def form_valid(self, form):
         if (form.is_valid()):
             feedback = form.save()
-            mail_admins(
-                feedback.subject,
-                feedback.message + '\n' + datetime.datetime.__str__(feedback.create_date) + '\n' +
-                feedback.from_email,
-
-            )
+            sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+            from_email = Email("root@localhost")
+            to_email = Email(settings.ADMINS)
+            subject = 'PyCloud ' + form.subject
+            content = Content("text/plain", form.message+'\n'+form.from_email)
+            mail = Mail(from_email, subject, to_email, content)
+            response = sg.client.mail.send.post(request_body=mail.get())
             messages.success(self.request, "Thank you for your feedback! We will keep in touch with you very soon!")
         return super(FeedbackView, self).form_valid(form)

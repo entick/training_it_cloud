@@ -8,8 +8,11 @@ from .forms import CourseForm, LessonForm
 
 from django.contrib.auth.decorators import login_required
 
+import logging
+
 
 # Create your views here.
+logger = logging.getLogger(__name__)
 
 class CourseListView(generic.ListView):
     template_name = 'courses/courses_list.html'
@@ -24,17 +27,34 @@ class CourseDetailView(generic.DeleteView):
     template_name = 'courses/course_detail.html'
 
     def get_context_data(self, **kwargs):
+        logger.debug('Courses detail view has been debugged!')
+        logger.info('Logger of courses detail view informs you!')
+        logger.warning('Logger of courses detail view warns you!')
+        logger.error('Courses detail view went wrong!')
         context = super(CourseDetailView, self).get_context_data(**kwargs)
         course = get_object_or_404(Course, pk=self.object.pk)
-        context["course"]=course
-        context['lessons']=Lesson.objects.filter(course=course.pk).order_by('order')
+        context["course"] = course
+        context['lessons'] = Lesson.objects.filter(course=course.pk).order_by('order')
         return context
+
 
 class CourseCreateView(generic.CreateView):
     model = Course
     template_name = 'courses/course_edit.html'
     form_class = CourseForm
-    success_url = reverse_lazy('courses_list')
+    success_url = reverse_lazy('courses:courses_list')
+
+
+class CourseUpdateView(generic.UpdateView):
+    model = Course
+    form_class = CourseForm
+    template_name = 'courses/course_edit.html'
+    success_url = reverse_lazy('courses:courses_list')
+
+
+class CourseDeleteView(generic.DeleteView):
+    success_url = reverse_lazy('courses:courses_list')
+    model = Course
 
 
 def courses_list(request):

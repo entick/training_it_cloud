@@ -26,7 +26,7 @@
                 <li class><a href={% url 'posts:post_list' %}>Blog</a></li>
                 <li class><a href={% url 'polls:index' %}>Polls</a></li>
                 <li class><a href={% url 'courses:courses_list' %}>Courses</a></li>
-                {% if "/course/" in request.get_full_path and request.get_full_path|length > 8 %}
+                {% if "/course/" in request.get_full_path and request.get_full_path|length > 8 and "new" not in request.get_full_path and "edit" not in request.get_full_path%}
                     <li class><a
                             href={% url 'students:students_list' %}?course_id={{ request.get_full_path|cut:"/"|cut:"course" }}>Students</a>
                     </li>
