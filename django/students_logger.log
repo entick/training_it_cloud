@@ -30,3 +30,5 @@ WARNING 2017-07-12 17:23:10 views get_queryset Logger of students detail view wa
 ERROR 2017-07-12 17:23:10 views get_queryset Students detail view went wrong!
 WARNING 2017-07-12 17:46:12 views get_queryset Logger of students detail view warns you!
 ERROR 2017-07-12 17:46:12 views get_queryset Students detail view went wrong!
+WARNING 2017-07-12 17:46:13 views get_queryset Logger of students detail view warns you!
+ERROR 2017-07-12 17:46:13 views get_queryset Students detail view went wrong!
